@@ -100,7 +100,7 @@ local bind = function(event, func)
 end
 
 local gethui = gethui
-local core = yeat.create("ScreenGui", gethui())
+local core = yeat.create("ScreenGui", gethui() or cloneref(game:GetService("CoreGui")))
 core.ResetOnSpawn = false
 core.IgnoreGuiInset = true
 core.DisplayOrder = yeat.bigmoney
