@@ -99,7 +99,7 @@ local bind = function(event, func)
     return hook
 end
 
-local gethui = gethui
+local gethui = gethui or nil
 local core = yeat.create("ScreenGui", gethui() or cloneref(game:GetService("CoreGui")))
 core.ResetOnSpawn = false
 core.IgnoreGuiInset = true
@@ -149,7 +149,9 @@ local checkKey = function(t)
 
     return (selkey)
 end
+local activated
 local deactivateKeyboard = function()
+    activated = false
     btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
     if txtBox then
         txtBox:ReleaseFocus()
@@ -157,10 +159,15 @@ local deactivateKeyboard = function()
     end
 end
 local activateKeyboard = function()
-    if isGUIOpen then return end
+    if isGUIOpen or activated then return end
+    activated = true
     btn.BackgroundColor3 = Color3.fromRGB(2, 74, 191)
 
     txtBox = yeat.create("TextBox", core)
+    txtBox.AnchorPoint = Vector2.new(0, .5)
+    txtBox.Position = UDim2.new(0, 0, .5, 0)
+    txtBox.Size = UDim2.new(1, 0, .1, 0)
+    txtBox.TextScaled = true
     txtBox:CaptureFocus()
     
     txtBox.FocusLost:Connect(function()
