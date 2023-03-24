@@ -12,9 +12,9 @@
     made by pengwin, under CC/BY License
 ]]
 
-if shared.mobKeyboard then
+pcall(function()
     shared.mobKeyboard.cleanup()
-end
+end)
 
 local warning = {}
 
