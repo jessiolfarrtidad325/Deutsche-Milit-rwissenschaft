@@ -139,14 +139,13 @@ end)
 Instance.new("UIAspectRatioConstraint", btn)
 Instance.new("UICorner", btn).CornerRadius = UDim.new(1, 0)
 
-if not isfile("keyboard.png") then
+pcall(function()
     writefile("keyboard.png", request({
         Url = "https://www.iconpacks.net/icons/1/free-keyboard-icon-1425-thumb.png",
         Method = "GET"
     }).Body)
-end
-
-btn.Image = asset("keyboard.png")
+    btn.Image = asset("keyboard.png")
+end)
 btn.ScaleType = Enum.ScaleType.Fit
 btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
