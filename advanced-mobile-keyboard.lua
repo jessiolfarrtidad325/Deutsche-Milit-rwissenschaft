@@ -159,8 +159,9 @@ local checkKey = function(t)
     local selkey
 
     for _, key in next, keyCodes do
-        if string.lower(t):match(string.lower(key.Name)) then
+        if t:match(string.lower(key.Name)) then
             selkey = key
+            warn(key.Name)
         end
     end
 
