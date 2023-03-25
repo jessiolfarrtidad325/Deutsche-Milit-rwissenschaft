@@ -18,17 +18,18 @@ end)
 
 local warning = {}
 
-local msg = messagebox or function(t)
+local msg = messagebox or function(...)
+    local t = {...}
     warn(t[2] or t[1])
 end
 
 local request = request or (syn and syn.request) or http_request or (http and http.request) or function(a)
     if not warning["requestWarn"] then
         warning["requestWarn"] = true
-        msg({
+        msg(
             "warning",
             "GET only. missing request func or UNC support"
-        })
+        )
     end
     
     local suc, req = pcall(function()
@@ -118,7 +119,6 @@ btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 btn.Size = UDim2.new(.1, 0, .1, 0)
 btn.AnchorPoint = Vector2.new(.5, .5)
 btn.Position = UDim2.new(.9, 0, .4, 0)
-btn.Auto
 
 bind(guiServ.MenuOpened, function()
     isGUIOpen = true
