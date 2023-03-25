@@ -88,6 +88,7 @@ local yeat = {
 
 local virInput = game:GetService("VirtualInputManager")
 local guiServ = game:GetService("GuiService")
+local httpServ = game:GetService("HttpService")
 local protect_gui = (syn and syn.protect_gui) or function() end
 local asset = getcustomasset or (syn and syn.getcustomasset) or function()
     return "rbxassetid://0" -- do nothing :giggle:
