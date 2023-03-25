@@ -159,7 +159,7 @@ local checkKey = function(t)
     local selkey
 
     for _, key in next, keyCodes do
-        if string.lower(key.Name) == t then
+        if string.lower(key.Name) == string.lower(t) then
             selkey = key
         end
     end
