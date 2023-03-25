@@ -47,10 +47,10 @@ local request = request or (syn and syn.request) or http_request or (http and ht
     else
         if not warning["requestError"] then
             warning["requestError"] = true
-            msg({
+            msg(
                 "warning",
                 "cant fetch. unable to access internet via executor"
-            })
+            )
         end
         return {
             StatusCode = 400,
@@ -63,10 +63,10 @@ end
 local loadstring = loadstring or function() -- too lazy to add custom luau loadstring module
     if not warning["loadstringError"] then
         warning["loadstringError"] = true
-        msg({
+        msg(
             "warning",
             "cant loadstring. no loadstring function"
-        })
+        )
     end
     -- error("No loadstring in exploit..")
 end
@@ -107,7 +107,6 @@ if gethui then
     core.Parent = gethui()
 end
 core.Parent = cloneref(game:GetService("CoreGui"))
-
 core.ResetOnSpawn = false
 core.IgnoreGuiInset = true
 core.DisplayOrder = yeat.bigmoney
@@ -132,10 +131,10 @@ end)
 Instance.new("UIAspectRatioConstraint", btn)
 Instance.new("UICorner", btn).CornerRadius = UDim.new(1, 0)
 
-btn.Image = asset(readfile(request({
+btn.Image = asset(request({
     Url = "https://www.iconpacks.net/icons/1/free-keyboard-icon-1425-thumb.png",
     Method = "GET"
-})))
+}).Body)
 btn.ScaleType = Enum.ScaleType.Fit
 btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
