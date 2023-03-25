@@ -155,7 +155,7 @@ local registerKey = function(k)
     virInput:SendKeyEvent(false, k, false, nil)
 end
 local checkKey = function(t)
-    local keyCodes = Enum.KeyCodes:GetEnumItems()
+    local keyCodes = Enum.KeyCode:GetEnumItems()
     local selkey
 
     for _, key in next, keyCodes do
