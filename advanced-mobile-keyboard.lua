@@ -4,6 +4,7 @@
     Credits:
     - BabyHamsta: CoreGui Bypasses (GetFocusedTextbox, super important to spoof): https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua
     - ScriptUNC.org: Support for some functions and mainly their documentation
+    - The Collector: testing/rating it
 
     Supported for:
     - Fluxus-Android: Full
