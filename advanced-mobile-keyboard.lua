@@ -165,7 +165,7 @@ local checkKey = function(t)
 
     return (selkey)
 end
-local activated
+local activated = false
 local deactivateKeyboard = function()
     activated = false
     btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
