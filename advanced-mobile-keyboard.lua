@@ -23,6 +23,13 @@ local msg = messagebox or function(...)
     warn(t[2] or t[1])
 end
 
+local isfile = function(p)
+    local suc, res = pcall(function()
+        return readfile(p)
+    end)
+    return (suc or res ~= nil)
+end
+
 local request = request or (syn and syn.request) or http_request or (http and http.request) or function(a)
     if not warning["requestWarn"] then
         warning["requestWarn"] = true
@@ -118,7 +125,7 @@ local btn = yeat.create("ImageButton", core)
 btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 btn.Size = UDim2.new(.1, 0, .1, 0)
 btn.AnchorPoint = Vector2.new(.5, .5)
-btn.Position = UDim2.new(.9, 0, .4, 0)
+btn.Position = UDim2.new(.92, 0, .3, 0)
 
 bind(guiServ.MenuOpened, function()
     isGUIOpen = true
@@ -132,10 +139,14 @@ end)
 Instance.new("UIAspectRatioConstraint", btn)
 Instance.new("UICorner", btn).CornerRadius = UDim.new(1, 0)
 
-btn.Image = asset(request({
-    Url = "https://www.iconpacks.net/icons/1/free-keyboard-icon-1425-thumb.png",
-    Method = "GET"
-}).Body)
+if not isfile("keyboard.png") then
+    writefile("keyboard.png", request({
+        Url = "https://www.iconpacks.net/icons/1/free-keyboard-icon-1425-thumb.png",
+        Method = "GET"
+    }).Body)
+end
+
+btn.Image = asset("keyboard.png")
 btn.ScaleType = Enum.ScaleType.Fit
 btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
