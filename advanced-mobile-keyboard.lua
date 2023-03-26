@@ -159,7 +159,9 @@ btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
-    virInput:SendKeyEvent(false, k, false, nil)
+    warn(k.Name)
+    keypress(k.Value)
+    -- virInput:SendKeyEvent(false, k, false, nil)
 end
 local checkKey = function(t)
     local keyCodes = Enum.KeyCode:GetEnumItems()
