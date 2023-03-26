@@ -152,6 +152,7 @@ btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
+    warn(k.Name)
     virInput:SendKeyEvent(false, k, false, nil)
 end
 local checkKey = function(t)
@@ -161,7 +162,7 @@ local checkKey = function(t)
     for _, key in next, keyCodes do
         if t:match(string.lower(key.Name)) then
             selkey = key
-            warn(key.Name)
+            -- warn(key.Name)
         end
     end
 
