@@ -13,6 +13,10 @@
     made by pengwin, under CC/BY License
 ]]
 
+repeat
+    task.wait()
+until game:IsLoaded()
+
 pcall(function()
     shared.mobKeyboard.cleanup()
 end)
@@ -28,7 +32,7 @@ local isfile = function(p)
     local suc, res = pcall(function()
         return readfile(p)
     end)
-    return (suc or res ~= nil)
+    return (suc)
 end
 
 local request = request or (syn and syn.request) or http_request or (http and http.request) or function(a)
@@ -140,19 +144,20 @@ end)
 Instance.new("UIAspectRatioConstraint", btn)
 Instance.new("UICorner", btn).CornerRadius = UDim.new(1, 0)
 
-pcall(function()
+if not isfile("keyboard.png") then
     writefile("keyboard.png", request({
         Url = "https://www.iconpacks.net/icons/1/free-keyboard-icon-1425-thumb.png",
         Method = "GET"
     }).Body)
+end
+for _ = 1, 10, 1 do
     btn.Image = asset("keyboard.png")
-end)
+end
 btn.ScaleType = Enum.ScaleType.Fit
 btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
-    warn(k.Name)
     virInput:SendKeyEvent(false, k, false, nil)
 end
 local checkKey = function(t)
@@ -160,6 +165,7 @@ local checkKey = function(t)
     local selkey
 
     for _, key in next, keyCodes do
+        warn(key.Name)
         if t:match(string.lower(key.Name)) then
             selkey = key
             -- warn(key.Name)
