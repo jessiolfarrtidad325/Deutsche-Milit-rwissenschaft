@@ -102,6 +102,7 @@ local virInput = game:GetService("VirtualInputManager")
 local guiServ = game:GetService("GuiService")
 local runServ = game:GetService("RunService")
 local httpServ = game:GetService("HttpService")
+local userInput = game:GetService("UserInputService")
 local protect_gui = (syn and syn.protect_gui) or function() end
 local asset = getcustomasset or (syn and syn.getcustomasset) or function()
     return "rbxassetid://0" -- do nothing :giggle:
@@ -159,7 +160,10 @@ btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
-    keypress(k.Value)
+    for _, con in next, getconnections(userInput) do
+	    connection:Fire(k, false)
+    end
+    -- keypress(k.Value)
     -- virInput:SendKeyEvent(false, k, false, nil)
 end
 local checkKey = function(t)
@@ -193,7 +197,7 @@ local activateKeyboard = function()
     txtBox.AnchorPoint = Vector2.new(0, .5)
     txtBox.Position = UDim2.new(0, 0, .5, 0)
     txtBox.Size = UDim2.new(1, 0, .1, 0)
-    txtBox.TextSize = 50
+    txtBox.TextSize = 40
     txtBox.TextScaled = true
     txtBox:CaptureFocus()
     
