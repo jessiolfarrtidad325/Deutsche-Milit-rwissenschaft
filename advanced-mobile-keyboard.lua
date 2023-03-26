@@ -160,7 +160,7 @@ btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
-    for _, con in next, getconnections(userInput) do
+    for _, con in next, getconnections(userInput.InputBegan) do
 	    connection:Fire(k, false)
     end
     -- keypress(k.Value)
