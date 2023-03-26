@@ -100,6 +100,7 @@ local yeat = {
 
 local virInput = game:GetService("VirtualInputManager")
 local guiServ = game:GetService("GuiService")
+local runServ = game:GetService("RunService")
 local httpServ = game:GetService("HttpService")
 local protect_gui = (syn and syn.protect_gui) or function() end
 local asset = getcustomasset or (syn and syn.getcustomasset) or function()
@@ -165,7 +166,6 @@ local checkKey = function(t)
     local selkey
 
     for _, key in next, keyCodes do
-        warn(key.Name)
         if t:match(string.lower(key.Name)) then
             selkey = key
             -- warn(key.Name)
@@ -192,6 +192,7 @@ local activateKeyboard = function()
     txtBox.AnchorPoint = Vector2.new(0, .5)
     txtBox.Position = UDim2.new(0, 0, .5, 0)
     txtBox.Size = UDim2.new(1, 0, .1, 0)
+    txtBox.TextSize = 100
     txtBox.TextScaled = true
     txtBox:CaptureFocus()
     
@@ -199,17 +200,20 @@ local activateKeyboard = function()
         deactivateKeyboard()
     end)
 
-    txtBox:GetPropertyChangedSignal("Text"):Connect(function()
-        local str = txtBox.Text
-        if string.sub(str, -1, -1) == " " then
-            str = string.gsub(str, " ", "")
-            str = string.lower(str)
-            local keycode = checkKey(str)
-            if keycode then
-                registerKey(keycode)
-                deactivateKeyboard()
+    task.spawn(function()
+        repeat
+            local str = txtBox.Text
+            if string.sub(str, -1, -1) == " " then
+                str = string.gsub(str, " ", "")
+                str = string.lower(str)
+                local keycode = checkKey(str)
+                if keycode then
+                    registerKey(keycode)
+                    deactivateKeyboard()
+                end
             end
-        end
+            runServ.Heartbeat:Wait()
+        until not txtBox
     end)
 end
 
