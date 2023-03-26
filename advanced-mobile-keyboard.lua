@@ -159,7 +159,6 @@ btn.ResampleMode = Enum.ResamplerMode.Pixelated
 
 local txtBox
 local registerKey = function(k)
-    warn(k.Name)
     keypress(k.Value)
     -- virInput:SendKeyEvent(false, k, false, nil)
 end
@@ -194,7 +193,7 @@ local activateKeyboard = function()
     txtBox.AnchorPoint = Vector2.new(0, .5)
     txtBox.Position = UDim2.new(0, 0, .5, 0)
     txtBox.Size = UDim2.new(1, 0, .1, 0)
-    txtBox.TextSize = 100
+    txtBox.TextSize = 50
     txtBox.TextScaled = true
     txtBox:CaptureFocus()
     
@@ -203,6 +202,7 @@ local activateKeyboard = function()
     end)
 
     task.spawn(function()
+        local slammedTheKey
         repeat
             local str = txtBox.Text
             if string.sub(str, -1, -1) == " " then
@@ -210,12 +210,13 @@ local activateKeyboard = function()
                 str = string.lower(str)
                 local keycode = checkKey(str)
                 if keycode then
+                    slammedTheKey = true
                     registerKey(keycode)
                     deactivateKeyboard()
                 end
             end
             runServ.Heartbeat:Wait()
-        until not txtBox
+        until slammedTheKey or not txtBox
     end)
 end
 
